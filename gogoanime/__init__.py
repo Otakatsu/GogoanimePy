@@ -4,7 +4,7 @@ import requests
 
 def gogo_auth(email, password):
     s = requests.session()
-    animelink = "https://gogoanime.tel/login.html"
+    animelink = "https://gogoanime3.co/login.html"
     response = s.get(animelink)
     response_html = response.text
     soup = BeautifulSoup(response_html, "html.parser")
@@ -17,7 +17,7 @@ def gogo_auth(email, password):
     headers = {
         "User-Agent": "Mozilla/5.0 (Linux; Android 9; vivo 1916) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Mobile Safari/537.36",
         "authority": "gogo-cdn.com",
-        "referer": f"https://gogoanime.tel/",
+        "referer": f"https://gogoanime3.co/",
         "content-type": "application/x-www-form-urlencoded",
     }
     s.headers = headers
@@ -29,7 +29,7 @@ def gogo_auth(email, password):
         return s.cookies.get_dict().get("auth")
 
 def get_search_results(query, page = 0):
-        animelink = f"https://gogoanime.tel/search.html?keyword={query}&page={page}"
+        animelink = f"https://gogoanime3.co/search.html?keyword={query}&page={page}"
         response = requests.get(animelink)
         response_html = response.text
         soup = BeautifulSoup(response_html, 'lxml')
@@ -50,7 +50,7 @@ def get_search_results(query, page = 0):
         return res_search_list
         
 def get_anime_newseason(page = 0):
-        animelink = f"https://gogoanime.tel/new-season.html?page={page}"
+        animelink = f"https://gogoanime3.co/new-season.html?page={page}"
         response = requests.get(animelink)
         response_html = response.text
         soup = BeautifulSoup(response_html, 'html.parser')
@@ -74,7 +74,7 @@ def get_anime_newseason(page = 0):
 
 
 def get_anime_popular(page = 0):
-        animelink = f"https://gogoanime.tel/popular.html?page={page}"
+        animelink = f"https://gogoanime3.co/popular.html?page={page}"
         response = requests.get(animelink)
         response_html = response.text
         soup = BeautifulSoup(response_html, 'html.parser')
@@ -126,7 +126,7 @@ def get_anime_recent(type = 1, page = 0):
 
 
 def get_anime_details(id):  
-        animelink = f"https://gogoanime.tel/category/{id}"
+        animelink = f"https://gogoanime3.co/category/{id}"
         response = requests.get(animelink)
         plainText = response.text
         soup = BeautifulSoup(plainText, "lxml")
@@ -173,7 +173,7 @@ def get_anime_episode(email, password, id, episode):
     
     if auth_gogo:
         res_episode_list = []
-        animelink = requests.get(f"https://gogoanime.tel/{id}-episode-{episode}", cookies=dict(auth=auth_gogo))      
+        animelink = requests.get(f"https://gogoanime3.co/{id}-episode-{episode}", cookies=dict(auth=auth_gogo))      
         soup = BeautifulSoup(animelink.content, "html.parser")
         source_url = soup.find("div", {'class': 'cf-download'}).findAll('a')
         for links in source_url:
